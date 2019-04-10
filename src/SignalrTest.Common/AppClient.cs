@@ -65,6 +65,11 @@ namespace SignalrTest.Common
             }
         }
 
+        public Task SendGroupMessage(ProtocolGroupMessage msg)
+        {
+            return _connection.InvokeAsync<bool>("SendGroupMessage", msg);
+        }
+
         private void SetupClient()
         {
             _connection = new HubConnectionBuilder()
