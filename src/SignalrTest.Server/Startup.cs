@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SignalrTest.Server.Protocol;
 
 namespace SignalrTest.Server
 {
@@ -56,6 +57,16 @@ namespace SignalrTest.Server
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseSignalR(config =>
+            {
+                config.MapHub<HubProtocol>(new PathString("/hub"), options =>
+                {
+                    options.ApplicationMaxBufferSize = 200 * 1024;
+                    options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransportType.WebSockets;
+                });
+
+
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

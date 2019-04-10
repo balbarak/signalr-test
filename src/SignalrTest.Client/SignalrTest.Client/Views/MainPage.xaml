@@ -1,12 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SignalrTest.Client.Views.MainPage">
+<ContentPage
+    x:Class="SignalrTest.Client.Views.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackLayout
+                Margin="0,40,0,0"
+                HorizontalOptions="CenterAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <Button
+                    Command="{Binding ConnectCommand}"
+                    Text="Connect"
+                    WidthRequest="180" />
+                <Button
+                    Command="{Binding DisconnectCommand}"
+                    Text="Disconnect"
+                    WidthRequest="180" />
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="1"
+                Padding="10"
+                Orientation="Horizontal"
+                VerticalOptions="Start">
+                <Label Text="Status:" />
+                <Label Text="{Binding Status}" />
+            </StackLayout>
+
+            <Grid
+                Grid.Row="2"
+                Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Messages" />
+
+
+                <Label
+                    Grid.Column="1"
+                    Text="Log" />
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
