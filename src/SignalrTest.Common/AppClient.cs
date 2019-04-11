@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace SignalrTest.Common
 {
@@ -16,7 +17,7 @@ namespace SignalrTest.Common
 
         //public const string URL = "http://192.168.100.24:5000/hub";
 
-        public const string URL = "http://172.20.10.13:5000/hub";
+        public const string URL = "http://192.168.100.24:5000/hub";
 
         public const string GROUP_ID = "008406cd-5dd5-4d10-a43f-2dae33a88e33";
 
@@ -81,7 +82,9 @@ namespace SignalrTest.Common
             _connection = new HubConnectionBuilder()
                 .ConfigureLogging((logger) =>
                 {
+                    logger.SetMinimumLevel(LogLevel.Trace);
 
+                    logger.AddDebug();
                 })
                 .WithUrl(URL, config =>
                 {
