@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SignalrTest.Common
 {
@@ -86,7 +87,7 @@ namespace SignalrTest.Common
                 {
                     config.Transports = HttpTransportType.WebSockets;
                 })
-                .Add
+                //.AddMessagePackProtocol()
                 .Build();
 
             _connection.Closed += OnConnectionClosed;
