@@ -86,7 +86,7 @@ namespace SignalrTest.Common
                 {
                     config.Transports = HttpTransportType.WebSockets;
                 })
-                //.AddMessagePackProtocol()
+                .Add
                 .Build();
 
             _connection.Closed += OnConnectionClosed;
