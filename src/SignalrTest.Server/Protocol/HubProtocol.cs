@@ -9,9 +9,11 @@ namespace SignalrTest.Server.Protocol
 {
     public class HubProtocol : Hub
     {
-        public override Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
-            return base.OnConnectedAsync();
+           await base.OnConnectedAsync();
+
+            await Groups.AddToGroupAsync(Context.ConnectionId, AppClient.GROUP_ID);
         }
 
         public override Task OnDisconnectedAsync(Exception exception)

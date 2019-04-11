@@ -8,14 +8,14 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace SignalrTest.Client.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
         private AppClient _client = new AppClient();
-        private ObservableCollection<ProtocolGroupMessage> _messages;
-
+        
         public bool IsConnected => _client.IsConnected;
 
         public bool IsDisconnected => !_client.IsConnected;
@@ -32,16 +32,13 @@ namespace SignalrTest.Client.ViewModels
 
         public ICommand DisconnectCommand => new AsyncCommand(Disconnect);
 
-        public ObservableCollection<ProtocolGroupMessage> Messages
-        {
-            get { return _messages; }
-            set { _messages = value; OnPropertyChanged(); }
-        }
-        
+        public ObservableCollection<ProtocolGroupMessage> Messages { get; private set; } = new ObservableCollection<ProtocolGroupMessage>();
+
         public MainViewModel()
         {
             _client.OnDisconnected += OnDisconnected;
             _client.OnConnected += OnConnected;
+            _client.OnGroupMessage += OnGroupMessages;
         }
 
         public async Task Connect()
@@ -79,6 +76,13 @@ namespace SignalrTest.Client.ViewModels
 
             Status = "Disconnected";
         }
+
+
+        private void OnGroupMessages(object sender, ProtocolGroupMessage e)
+        {
+            Device.BeginInvokeOnMainThread(() => Messages.Add(e));
+        }
+
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

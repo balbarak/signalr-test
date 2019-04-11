@@ -1,4 +1,5 @@
-﻿using SignalrTest.Common;
+﻿using Balbarak.DataGenerator.Generators;
+using SignalrTest.Common;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +23,9 @@ namespace SignalrTest.TestClient
 
             while (true)
             {
-                await Task.Delay(1000);
+                await Task.Delay(400);
 
-                var msg = GetRandomMessage();
+                var msg = GetRandomArabicMessage();
 
                 Console.WriteLine($"Sending message {count} ...");
 
@@ -45,56 +46,46 @@ namespace SignalrTest.TestClient
             Console.WriteLine("Connected");
         }
 
-        private static ProtocolGroupMessage GetRandomMessage()
+        private static ProtocolGroupMessage GetRandomArabicMessage()
         {
+
             return new ProtocolGroupMessage()
             {
                 AffectedMember = null,
                 Date = DateTime.Now,
-                Body = GetRandomString(5,20),
+                Body = WordGenerator.GenerateArabicParagraph(5,20),
                 From = new ProtocolSender()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Name = GetRandomString(5,false),
-                    Username = GetRandomString(3,false)
+                    Name = NameGenerator.GenerateName().FirstNameAr,
+                    Username = NameGenerator.GenerateUsername()
                 },
-                GroupId = ProtocolHelper.GROUP_ID,
+                GroupId = AppClient.GROUP_ID,
                 Id = Guid.NewGuid().ToString(),
                 MessageType = ProtocolMessageType.Text
             };
         }
 
-        private static string GetRandomString(int size, bool lowerCase)
+        private static ProtocolGroupMessage GetRandomEnglishMessage()
         {
-            StringBuilder builder = new StringBuilder();
-         
-            char ch;
-            for (int i = 0; i < size; i++)
+
+            return new ProtocolGroupMessage()
             {
-                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * _random.NextDouble() + 65)));
-                builder.Append(ch);
-            }
-            if (lowerCase)
-                return builder.ToString().ToLower();
-            return builder.ToString();
+                AffectedMember = null,
+                Date = DateTime.Now,
+                Body = WordGenerator.GenerateEnglishcParagraph(5, 15),
+                From = new ProtocolSender()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = NameGenerator.GenerateName().FirstNameEn,
+                    Username = NameGenerator.GenerateUsername()
+                },
+                GroupId = AppClient.GROUP_ID,
+                Id = Guid.NewGuid().ToString(),
+                MessageType = ProtocolMessageType.Text
+            };
         }
 
-        private static string GetRandomString(int min,int max)
-        {
-            StringBuilder builder = new StringBuilder();
-            
-            int size = _random.Next(min, max);
-
-            char ch;
-            for (int i = 0; i < size; i++)
-            {
-                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * _random.NextDouble() + 65)));
-                builder.Append(ch);
-            }
-
-            return builder.ToString().ToLower();
-            
-        }
 
     }
 }

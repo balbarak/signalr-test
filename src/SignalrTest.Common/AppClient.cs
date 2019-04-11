@@ -9,10 +9,15 @@ namespace SignalrTest.Common
 {
     public class AppClient
     {
+        public event EventHandler<ProtocolGroupMessage> OnGroupMessage;
         public event EventHandler<Exception> OnDisconnected;
         public event EventHandler OnConnected;
 
-        public const string URL = "http://192.168.100.24:5000/hub";
+        //public const string URL = "http://192.168.100.24:5000/hub";
+
+        public const string URL = "http://172.20.10.13:5000/hub";
+
+        public const string GROUP_ID = "008406cd-5dd5-4d10-a43f-2dae33a88e33";
 
         private HubConnection _connection;
         
@@ -84,8 +89,11 @@ namespace SignalrTest.Common
                 //.AddMessagePackProtocol()
                 .Build();
 
-        }
+            _connection.Closed += OnConnectionClosed;
+            _connection.On<ProtocolGroupMessage>("OnGroupMessage", (args) => OnGroupMessageInternal(args));
 
+        }
+        
         private Task OnConnectionClosed(Exception e)
         {
             IsConnected = false;
@@ -97,5 +105,9 @@ namespace SignalrTest.Common
             return Task.CompletedTask;
         }
 
+        private void OnGroupMessageInternal(ProtocolGroupMessage e)
+        {
+            OnGroupMessage?.Invoke(this, e);
+        }
     }
 }
