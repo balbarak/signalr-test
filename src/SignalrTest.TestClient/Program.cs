@@ -31,6 +31,8 @@ namespace SignalrTest.TestClient
 
                 count++;
 
+                msg.Body = "إذا أردت أن تسقط التفاحة هز الشجرة. أول العلم الصمت، والثاتي حسن الاستماع، والثالث الحفظ، والرباع العمل به، ;";
+
                 await client.SendGroupMessage(msg);
             }
             
