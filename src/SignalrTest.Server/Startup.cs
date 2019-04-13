@@ -37,7 +37,7 @@ namespace SignalrTest.Server
                 configure.EnableDetailedErrors = true;
                 configure.ClientTimeoutInterval = TimeSpan.FromMinutes(6);
                 configure.KeepAliveInterval = TimeSpan.FromMinutes(3);
-            });
+            }).AddMessagePackProtocol();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
