@@ -6,7 +6,7 @@ The source contains 3 projects
 
 * `SingalrTest.Server.sln` aspnet core 2.2 server which host signalr
 * `SingalrTest.TestClient.sln` a console app that send a message every second
-* `SignalrTest.Android.sln` android project which recieves the messages from test client and the issue happend here
+* `SignalrTest.Android.sln` android project which recieves the messages from test client where the issue acquire
 
 in order to run the project follow the instructions
 
