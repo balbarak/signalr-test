@@ -1,5 +1,5 @@
 # Introduction 
-This repos is to help address signalr xamarin client issue where sometimes the cient get disconnected for unknown reason after sending a continuse message to a group every 1 second
+This repos is to help address signalr xamarin client issue where sometimes the client get disconnected for unknown reason after sending a continuse message to a group every 1 second
 
 # How to use
 The source contains 3 projects
